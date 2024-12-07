@@ -51,7 +51,7 @@
       <string/>
      </property>
      <property name="maximum">
-      <number>511</number>
+      <number>1023</number>
      </property>
     </widget>
    </item>
@@ -144,7 +144,7 @@
       <enum>Qt::ClickFocus</enum>
      </property>
      <property name="maximum">
-      <number>511</number>
+      <number>1023</number>
      </property>
     </widget>
    </item>
