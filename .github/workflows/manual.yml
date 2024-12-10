@@ -53,7 +53,7 @@ jobs:
         cache: true
     - name: Install Dependancies
       run: |
-        sudo apt install build-essential libqt5svg5-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools python3-pip python3.6
+        sudo apt install build-essential libqt5svg5-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools python3-pip python3
     - name: Install pytz
       run: |
         pip install pytz
