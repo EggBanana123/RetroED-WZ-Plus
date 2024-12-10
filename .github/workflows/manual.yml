@@ -1,11 +1,13 @@
-name: Build RetroED
-
-on: workflow_dispatch
+name: Build RetroED WZ+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
-  win-build:
+  RetroED-WZ-Plus_Windows:
     runs-on: windows-latest
-
     steps:
     - name: Checkout
       uses: actions/checkout@v4
@@ -26,7 +28,7 @@ jobs:
       run: |
         py -m pip install pytz
         py versiongen.py $Env:GITHUB_SHA
-    - name: Build RetroED
+    - name: Build RetroED WZ+ Windows
       working-directory: build
       run: |
         qmake ../RetroEDv2/RetroEDv2.pro -spec win32-msvc -config release "CONFIG+=qtquickcompiler"
@@ -37,5 +39,37 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: RetroED-win
+        name: RetroED-WZ-Plus_Windows
+        path: build/release/deploy
+
+  RetroED-WZ-Plus_Linux:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        cache: true
+    - name: Install Dependancies
+      run: |
+        sudo apt install build-essential libqt5svg5-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools python3-pip python3.6
+    - name: Install pytz
+      run: |
+        pip install pytz
+    - name: Build RetroED WZ+ Linux
+      run: |
+        cd RetroEDv2
+        python3 versiongen.py
+        mkdir build
+        qmake -o build RetroEDv2.pro
+        cd build
+        make -j$(nproc)
+    - name: Move Artifacts
+      run: |
+        move build/release/RetroED.exe build/release/deploy/RetroED.exe
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: RetroED-WZ-Plus_Linux
         path: build/release/deploy
