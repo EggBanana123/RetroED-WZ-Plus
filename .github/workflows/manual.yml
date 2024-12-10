@@ -67,7 +67,7 @@ jobs:
         make -j$(nproc)
     - name: Move Artifacts
       run: |
-        move build/release/RetroED.exe build/release/deploy/RetroED.exe
+        mv build/release/*.* build/release/deploy/*.*
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
