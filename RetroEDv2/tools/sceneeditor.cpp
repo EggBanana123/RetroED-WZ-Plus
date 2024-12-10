@@ -947,7 +947,7 @@ SceneEditor::SceneEditor(QWidget *parent) : QWidget(parent), ui(new Ui::SceneEdi
         SetStatus("Rebuilding tiles...", true);
         viewer->gfxSurface[0].texturePtr = nullptr;
 
-        QImage tileset(0x10, 0x400 * 0x10, QImage::Format_Indexed8);
+        QImage tileset(0x10, 0x800 * 0x10, QImage::Format_Indexed8);
 
         QVector<QRgb> pal;
         for (PaletteColor &col : viewer->tilePalette) pal.append(col.toQColor().rgb());
@@ -955,7 +955,7 @@ SceneEditor::SceneEditor(QWidget *parent) : QWidget(parent), ui(new Ui::SceneEdi
         AddStatusProgress(1. / 5); // finished setup
 
         uchar *pixels = tileset.bits();
-        for (int i = 0; i < 0x400; ++i) {
+        for (int i = 0; i < 0x800; ++i) {
             uchar *src = viewer->tiles[i].bits();
             for (int y = 0; y < 16; ++y) {
                 for (int x = 0; x < 16; ++x) {
@@ -978,7 +978,7 @@ SceneEditor::SceneEditor(QWidget *parent) : QWidget(parent), ui(new Ui::SceneEdi
         AddStatusProgress(1. / 5); // finished updating layout
 
         RSDKv5::TileConfig configStore = viewer->tileconfig;
-        for (int i = 0; i < 0x400; ++i) {
+        for (int i = 0; i < 0x800; ++i) {
             int id                                   = edit->tileIDs.indexOf(i);
             viewer->tileconfig.collisionPaths[0][id] = configStore.collisionPaths[0][i];
             viewer->tileconfig.collisionPaths[1][id] = configStore.collisionPaths[1][i];
@@ -1025,7 +1025,7 @@ SceneEditor::SceneEditor(QWidget *parent) : QWidget(parent), ui(new Ui::SceneEdi
             float progress = 1.6;
             if (sel->copyTilePlanes){
                 SetStatus("Copying tile collision....", true);
-                for (int i = 0; i < 0x400; ++i) { viewer->tileconfig.collisionPaths[1][i] = viewer->tileconfig.collisionPaths[0][i]; };
+                for (int i = 0; i < 0x800; ++i) { viewer->tileconfig.collisionPaths[1][i] = viewer->tileconfig.collisionPaths[0][i]; };
                 AddStatusProgress(progress / 5); // finished copying tile planes
                 progress = 3.2;
             }
@@ -1407,14 +1407,14 @@ SceneEditor::SceneEditor(QWidget *parent) : QWidget(parent), ui(new Ui::SceneEdi
 
         viewer->gfxSurface[0].texturePtr = nullptr;
 
-        QImage tileset(0x10, 0x400 * 0x10, QImage::Format_Indexed8);
+        QImage tileset(0x10, 0x800 * 0x10, QImage::Format_Indexed8);
 
         QVector<QRgb> pal;
         for (PaletteColor &col : viewer->tilePalette) pal.append(col.toQColor().rgb());
         tileset.setColorTable(pal);
 
         uchar *pixels = tileset.bits();
-        for (int i = 0; i < 0x400; ++i) {
+        for (int i = 0; i < 0x800; ++i) {
             uchar *src = viewer->tiles[i].bits();
             for (int y = 0; y < 16; ++y) {
                 for (int x = 0; x < 16; ++x) {
@@ -2407,7 +2407,7 @@ void SceneEditor::CreateNewScene(QString scnPath, byte scnVer, bool loadGC, QStr
             tileconfig = RSDKv4::TileConfig();
 
         for (int p = 0; p < 2; ++p) {
-            for (int t = 0; t < 0x400; ++t) {
+            for (int t = 0; t < 0x800; ++t) {
                 auto *dstTile = &viewer->tileconfig.collisionPaths[p][t];
                 auto *srcTile = &tileconfig.collisionPaths[p][t];
 
@@ -2468,7 +2468,7 @@ void SceneEditor::CreateNewScene(QString scnPath, byte scnVer, bool loadGC, QStr
             tileconfig.read(pathTCF);
 
             for (int p = 0; p < 2; ++p) {
-                for (int c = 0; c < 0x400; ++c) {
+                for (int c = 0; c < 0x800; ++c) {
                      auto *dstTile = &viewer->tileconfigv1.collisionPaths[p][c];
                      auto *srcTile = &tileconfig.collisionPaths[p][c];
 
@@ -2604,7 +2604,7 @@ void SceneEditor::CreateNewScene(QString scnPath, byte scnVer, bool loadGC, QStr
 
     AddStatusProgress(1. / 7); // finish objects & entities
 
-    QImage tileset(16, 0x400 * 16, QImage::Format_Indexed8);
+    QImage tileset(16, 0x800 * 16, QImage::Format_Indexed8);
     for (int i = 0; i < 256; ++i)
         tileset.setColor(i, QRgb(0xFFFF00FF));
     tileset.fill(0);
@@ -2794,7 +2794,7 @@ void SceneEditor::LoadScene(QString scnPath, QString gcfPath, byte gameType)
         stageConfig.read(gameType, pathSCF);
 
         for (int p = 0; p < 2; ++p) {
-            for (int t = 0; t < 0x400; ++t) {
+            for (int t = 0; t < 0x800; ++t) {
                 auto *dstTile = &viewer->tileconfig.collisionPaths[p][t];
                 auto *srcTile = &tileconfig.collisionPaths[p][t];
 
@@ -2829,7 +2829,7 @@ void SceneEditor::LoadScene(QString scnPath, QString gcfPath, byte gameType)
         stageConfig.read(gameType, pathSCF);
 
         for (int p = 0; p < 2; ++p) {
-            for (int c = 0; c < 0x400; ++c) {
+            for (int c = 0; c < 0x800; ++c) {
                  auto *dstTile = &viewer->tileconfigv1.collisionPaths[p][c];
                  auto *srcTile = &tileconfig.collisionPaths[p][c];
 
@@ -3036,7 +3036,7 @@ void SceneEditor::LoadScene(QString scnPath, QString gcfPath, byte gameType)
     }
 
     AddStatusProgress(1. / 7); // finish objects & entities
-    QImage tileset(16, 0x400 * 16, QImage::Format_Indexed8);
+    QImage tileset(16, 0x800 * 16, QImage::Format_Indexed8);
     for (int i = 0; i < 256; ++i)
         tileset.setColor(i, QRgb(0xFFFF00FF));
     tileset.fill(0);
@@ -3225,13 +3225,13 @@ bool SceneEditor::SaveScene(bool forceSaveAs)
     basePath         = basePath.replace(QFileInfo(savePath).fileName(), "");
 
     SetStatus("Saving scene...", true);
-    FormatHelpers::Gif tileset(16, 0x400 * 16);
+    FormatHelpers::Gif tileset(16, 0x800 * 16);
 
     int c = 0;
     for (PaletteColor &col : viewer->tilePalette) tileset.palette[c++] = col.toQColor();
 
     int pos = 0;
-    for (int i = 0; i < 0x400; ++i) {
+    for (int i = 0; i < 0x800; ++i) {
         uchar *src = viewer->tiles[i].bits();
         for (int y = 0; y < 16; ++y) {
             for (int x = 0; x < 16; ++x) tileset.pixels[pos++] = *src++;
@@ -3368,7 +3368,7 @@ bool SceneEditor::SaveScene(bool forceSaveAs)
         RSDKv4::TileConfig tileconfig;
 
         for (int p = 0; p < 2; ++p) {
-            for (int t = 0; t < 0x400; ++t) {
+            for (int t = 0; t < 0x800; ++t) {
                 auto *dstTile = &tileconfig.collisionPaths[p][t];
                 auto *srcTile = &viewer->tileconfig.collisionPaths[p][t];
 
@@ -3397,7 +3397,7 @@ bool SceneEditor::SaveScene(bool forceSaveAs)
         RSDKv1::TileConfig tileconfig;
 
         for (int p = 0; p < 2; ++p) {
-            for (int c = 0; c < 0x400; ++c) {
+            for (int c = 0; c < 0x800; ++c) {
                 auto *dstTile = &tileconfig.collisionPaths[p][c];
                  auto *srcTile = &viewer->tileconfigv1.collisionPaths[p][c];
 

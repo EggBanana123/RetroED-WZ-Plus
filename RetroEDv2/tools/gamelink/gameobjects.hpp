@@ -1,6 +1,6 @@
 #pragma once
 
-#define OBJECT_COUNT_v5 (0x400)
+#define OBJECT_COUNT_v5 (0x800)
 // 0x800 scene objects, 0x40 reserved ones, and 0x100 spare slots for creation
 #define RESERVE_ENTITY_COUNT_v5 (0x40)
 #define TEMPENTITY_COUNT_v5     (0x100)
@@ -11,7 +11,7 @@
 #define TYPE_COUNT      (0x100)
 #define TYPEGROUP_COUNT_v5 (0x104)
 
-#define FOREACH_STACK_COUNT (0x400)
+#define FOREACH_STACK_COUNT (0x800)
 
 enum ActiveFlags {
     ACTIVE_NEVER,   // never update

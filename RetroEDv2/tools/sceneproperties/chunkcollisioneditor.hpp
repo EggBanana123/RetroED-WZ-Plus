@@ -18,7 +18,7 @@ public:
         : QLabel(parent), cSel(cSel), tiles(tiles), chunks(chk), drawChk(drawChk)
     {
     }
-    RSDKv5::TileConfig::CollisionMask *cmask[2][1024];
+    RSDKv5::TileConfig::CollisionMask *cmask[2][2048];
     int collisionLyr;
 
     Vector2<int> offset = Vector2<int>(0, 0);
@@ -80,7 +80,7 @@ class ChunkCollisionEditor : public QDialog
 public:
     explicit ChunkCollisionEditor(FormatHelpers::Chunks *chk, ushort curChunk, QList<QImage> &tiles, SceneViewer *viewer);
     ~ChunkCollisionEditor();
-    RSDKv5::TileConfig::CollisionMask *cmask[2][1024];
+    RSDKv5::TileConfig::CollisionMask *cmask[2][2048];
 
     byte defaultVisualPlane   =  0;
     ushort selectedChunk      = -1;
