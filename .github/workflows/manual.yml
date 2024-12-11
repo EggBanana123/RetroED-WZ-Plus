@@ -51,10 +51,11 @@ jobs:
       uses: jurplel/install-qt-action@v4
       with:
         cache: true
-    - name: Install Dependancies
+    - name: Install Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.13' 
+    - name: Install Dependancies
       run: |
         sudo apt install build-essential libqt5svg5-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools python3-pip
     - name: Install pytz
