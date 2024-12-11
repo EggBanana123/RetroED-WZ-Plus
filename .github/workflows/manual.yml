@@ -65,7 +65,6 @@ jobs:
         qmake -o build RetroEDv2.pro
         cd build
         make -j$(nproc)
-        mkdir 
     - name: Move Artifacts
       run: |
         mkdir artifacts
