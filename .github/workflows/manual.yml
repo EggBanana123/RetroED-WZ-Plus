@@ -68,7 +68,7 @@ jobs:
     - name: Move Artifacts
       run: |
         mkdir artifacts
-        mv build/RetroED ./artifacts
+        mv RetroED ./artifacts
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
