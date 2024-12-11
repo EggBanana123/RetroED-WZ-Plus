@@ -65,11 +65,13 @@ jobs:
         qmake -o build RetroEDv2.pro
         cd build
         make -j$(nproc)
+        mkdir 
     - name: Move Artifacts
       run: |
-        mv build/release/RetroED build/release/deploy/RetroED
+        mkdir artifacts
+        mv build/RetroED ./artifacts
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
         name: RetroED-WZ-Plus_Linux
-        path: build/release/deploy
+        path: build/artifacts
