@@ -67,9 +67,8 @@ jobs:
         make -j$(nproc)
     - name: Move Artifacts
       run: |
-        cd ./RetroEDv2/build
         mkdir artifacts
-        mv RetroED ./artifacts
+        mv ./RetroEDv2/build/RetroED ./artifacts
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
