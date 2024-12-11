@@ -52,8 +52,11 @@ jobs:
       with:
         cache: true
     - name: Install Dependancies
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13' 
       run: |
-        sudo apt install build-essential libqt5svg5-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools python3-pip python3
+        sudo apt install build-essential libqt5svg5-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools python3-pip
     - name: Install pytz
       run: |
         pip install pytz
@@ -69,6 +72,7 @@ jobs:
       run: |
         mkdir artifacts
         mv ./RetroEDv2/build/RetroED ./artifacts
+        tar -czvf linux.tar.gz -C ./artifacts .
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
