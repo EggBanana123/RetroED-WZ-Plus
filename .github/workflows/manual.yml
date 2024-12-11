@@ -54,13 +54,13 @@ jobs:
     - name: Install Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.13' 
-    - name: Install Dependancies
-      run: |
-        sudo apt install build-essential libqt5svg5-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools python3-pip
+        python-version: '3.13'
     - name: Install pytz
       run: |
         pip install pytz
+    - name: Install Dependancies
+      run: |
+        sudo apt install build-essential libqt5svg5-dev qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools python3-pip
     - name: Build RetroED WZ+ Linux
       run: |
         cd RetroEDv2
