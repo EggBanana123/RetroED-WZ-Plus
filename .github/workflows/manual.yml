@@ -51,10 +51,6 @@ jobs:
       uses: jurplel/install-qt-action@v4
       with:
         cache: true
-    - name: Install Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.13'
     - name: Install pytz
       run: |
         pip install pytz
